@@ -39,11 +39,17 @@ public class UserServiceTest {
         User testUser = new User();
         testUser.setName("testName");
         testUser.setUsername("testUsername");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
 
         User createdUser = userService.createUser(testUser);
 
         Assert.assertNotNull(createdUser.getToken());
         Assert.assertEquals(createdUser.getStatus(),UserStatus.ONLINE);
         Assert.assertEquals(createdUser, userRepository.findByToken(createdUser.getToken()));
+        Assert.assertEquals(createdUser, userRepository.findByName(createdUser.getName()));
+        Assert.assertEquals(createdUser, userRepository.findByUsername(createdUser.getUsername()));
+        Assert.assertEquals(createdUser, userRepository.findByBirthday(createdUser.getBirthday()));
+        Assert.assertEquals(createdUser, userRepository.findByPassword(createdUser.getPassword()));
     }
 }

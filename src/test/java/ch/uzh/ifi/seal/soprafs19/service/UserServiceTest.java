@@ -41,6 +41,7 @@ public class UserServiceTest {
         testUser.setUsername("testUsername");
         testUser.setBirthday("01.01.1999");
         testUser.setPassword("testPassword");
+        testUser.setCreationDate();
 
         User createdUser = userService.createUser(testUser);
 
@@ -51,5 +52,9 @@ public class UserServiceTest {
         Assert.assertEquals(createdUser, userRepository.findByUsername(createdUser.getUsername()));
         Assert.assertEquals(createdUser, userRepository.findByBirthday(createdUser.getBirthday()));
         Assert.assertEquals(createdUser, userRepository.findByPassword(createdUser.getPassword()));
+
+        Assert.assertEquals(createdUser.getCreationDate(), testUser.getCreationDate());
+
+        Assert.assertEquals(createdUser.getPassword(), userRepository.findByName(createdUser.getName()).getPassword());
     }
 }

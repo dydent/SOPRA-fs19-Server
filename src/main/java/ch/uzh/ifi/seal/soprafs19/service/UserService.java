@@ -25,17 +25,35 @@ public class UserService {
     public UserService(@Qualifier("userRepository") UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    // Answer for GET request from client
+
     public Iterable<User> getUsers() {
         return this.userRepository.findAll();
     }
 
-    // Answer for POST request from client
+    // create  and return new User and store it into to the data base
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
+        newUser.setCreationDate();
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
+
+    public Boolean existsUserById(long id){
+        return this.userRepository.existsUserById(id);
+    }
+
+    public Boolean existsUserByUsername (String userName){
+        return this.userRepository.existsUserByUsername(userName);
+    }
+
+    public User getUserById(long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public User getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username);
+    }
+
 }

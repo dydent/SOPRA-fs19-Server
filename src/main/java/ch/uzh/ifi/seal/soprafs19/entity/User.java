@@ -3,6 +3,10 @@ package ch.uzh.ifi.seal.soprafs19.entity;
 import ch.uzh.ifi.seal.soprafs19.constant.UserStatus;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +40,10 @@ public class User implements Serializable {
 
 	@Column(nullable = false)
 	private UserStatus status;
+
+	@Column(nullable = false)
+	private Date creationDate;
+
 
 	public Long getId() {
 		return id;
@@ -92,6 +100,16 @@ public class User implements Serializable {
 	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
+
+	public Date getCreationDate(){
+		return this.creationDate;
+	}
+
+	public void setCreationDate(){
+		this.creationDate = new Date();
+	}
+
+
 
 	@Override
 	public boolean equals(Object o) {

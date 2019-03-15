@@ -4,8 +4,6 @@ import ch.uzh.ifi.seal.soprafs19.constant.UserStatus;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 
 import javax.persistence.Column;
@@ -42,7 +40,7 @@ public class User implements Serializable {
 	private UserStatus status;
 
 	@Column(nullable = false)
-	private Date creationDate;
+	private Date createDate;
 
 
 	public Long getId() {
@@ -101,12 +99,12 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
-	public Date getCreationDate(){
-		return this.creationDate;
+	public Date getCreateDate(){
+		return this.createDate;
 	}
 
-	public void setCreationDate(){
-		this.creationDate = new Date();
+	public void setCreateDate(){
+		this.createDate = new Date();
 	}
 
 

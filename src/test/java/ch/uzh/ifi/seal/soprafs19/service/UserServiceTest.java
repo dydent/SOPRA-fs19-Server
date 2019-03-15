@@ -4,7 +4,6 @@ import ch.uzh.ifi.seal.soprafs19.Application;
 import ch.uzh.ifi.seal.soprafs19.constant.UserStatus;
 import ch.uzh.ifi.seal.soprafs19.entity.User;
 import ch.uzh.ifi.seal.soprafs19.repository.UserRepository;
-import ch.uzh.ifi.seal.soprafs19.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +40,7 @@ public class UserServiceTest {
         testUser.setUsername("testUsername");
         testUser.setBirthday("01.01.1999");
         testUser.setPassword("testPassword");
-        testUser.setCreationDate();
+        testUser.setCreateDate();
 
         User createdUser = userService.createUser(testUser);
 
@@ -52,9 +51,88 @@ public class UserServiceTest {
         Assert.assertEquals(createdUser, userRepository.findByUsername(createdUser.getUsername()));
         Assert.assertEquals(createdUser, userRepository.findByBirthday(createdUser.getBirthday()));
         Assert.assertEquals(createdUser, userRepository.findByPassword(createdUser.getPassword()));
-
-        Assert.assertEquals(createdUser.getCreationDate(), testUser.getCreationDate());
-
+        Assert.assertEquals(createdUser.getCreateDate(), testUser.getCreateDate());
         Assert.assertEquals(createdUser.getPassword(), userRepository.findByName(createdUser.getName()).getPassword());
     }
+
+    @Test
+    public void existsUserByUsername(){
+        User testUser = new User();
+        testUser.setName("name2");
+        testUser.setUsername("username2");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
+        testUser.setCreateDate();
+
+        User createdUser = userService.createUser(testUser);
+
+        Assert.assertEquals(userService.existsUserByUsername(createdUser.getUsername()), userRepository.existsUserByUsername(createdUser.getUsername()));
+
+    }
+
+
+    @Test
+    public void getUserById(){
+        User testUser = new User();
+        testUser.setName("name3");
+        testUser.setUsername("username3");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
+        testUser.setCreateDate();
+
+        User createdUser = userService.createUser(testUser);
+
+        Assert.assertEquals(userService.getUserById(createdUser.getId()), createdUser);
+
+    }
+
+    @Test
+    public void getUserByUsername(){
+        User testUser = new User();
+        testUser.setName("name4");
+        testUser.setUsername("username4");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
+        testUser.setCreateDate();
+
+        User createdUser = userService.createUser(testUser);
+
+        Assert.assertEquals(userService.getUserByUsername(createdUser.getUsername()), createdUser);
+    }
+
+    @Test
+    public void getUserByToken(){
+        User testUser = new User();
+        testUser.setName("name5");
+        testUser.setUsername("username5");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
+        testUser.setCreateDate();
+
+        User createdUser = userService.createUser(testUser);
+
+        Assert.assertEquals(userService.getUserByToken(createdUser.getToken()), createdUser);
+    }
+
+    @Test
+    public void editUser(){
+
+        User testUser = new User();
+        testUser.setName("name6");
+        testUser.setUsername("username6");
+        testUser.setBirthday("01.01.1999");
+        testUser.setPassword("testPassword");
+        testUser.setCreateDate();
+
+        User createdUser = userService.createUser(testUser);
+
+        testUser.setUsername(("newUsername"));
+        testUser.setBirthday("11.11.1111");
+        userService.editUser(testUser);
+
+        Assert.assertEquals(createdUser.getUsername(), "newUsername");
+        Assert.assertEquals(createdUser.getBirthday(), "11.11.1111");
+    }
+
+
 }

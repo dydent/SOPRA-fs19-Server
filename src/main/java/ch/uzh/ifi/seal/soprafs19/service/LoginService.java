@@ -24,21 +24,20 @@ public class LoginService {
     private final UserService userService;
 
 
-
     @Autowired
     public LoginService(@Qualifier("userRepository") UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
         this.userService = userService;
     }
 
-    public Boolean checkUsername(User userToCheck){
+    public Boolean checkUsername(User userToCheck) {
         return this.userService.existsUserByUsername(userToCheck.getUsername());
     }
+
     public Boolean acceptLogin(String username, String password) {
         return this.userRepository.findByUsername(username).getPassword().equals(password);
     }
 
-    // Answer for POST request from client
     public User login(User user) {
         var loggedUser = this.userService.getUserByUsername(user.getUsername());
         loggedUser.setToken(UUID.randomUUID().toString());
@@ -46,4 +45,5 @@ public class LoginService {
         return loggedUser;
     }
 
-        }
+}
+

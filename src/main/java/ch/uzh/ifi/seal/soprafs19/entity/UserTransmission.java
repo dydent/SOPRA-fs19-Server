@@ -6,27 +6,27 @@ import java.util.Date;
 
 public class UserTransmission {
 
-    public UserTransmission(User user, Boolean passToken){
+    public UserTransmission(User user){
         this.setId(user.getId());
         this.setUsername(user.getUsername());
+        this.setName(user.getName());
         this.setStatus(user.getStatus());
-        this.setCreationDate(user.getCreationDate());
+        this.setCreateDate(user.getCreateDate());
         this.setBirthday(user.getBirthday());
-
-        if (passToken) {
-            this.setToken(user.getToken());
-        }
-
+        this.setToken(user.getToken());
     }
+
     private Long id;
 
     private String username;
+
+    private String name;
 
     private String token;
 
     private UserStatus status;
 
-    private Date creationDate;
+    private Date createDate;
 
     private String birthday;
 
@@ -37,6 +37,14 @@ public class UserTransmission {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -55,12 +63,12 @@ public class UserTransmission {
         this.token = token;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public String getBirthday() {

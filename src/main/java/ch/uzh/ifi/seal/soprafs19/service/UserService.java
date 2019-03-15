@@ -20,7 +20,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-
     @Autowired
     public UserService(@Qualifier("userRepository") UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -30,18 +29,20 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
-    // create  and return new User and store it into to the data base
     public User createUser(User newUser) {
         newUser.setToken(UUID.randomUUID().toString());
         newUser.setStatus(UserStatus.ONLINE);
-        newUser.setCreationDate();
+        newUser.setCreateDate();
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
-    public Boolean existsUserById(long id){
-        return this.userRepository.existsUserById(id);
+    public void editUser(User editUser){
+        var user = this.getUserById(editUser.getId());
+        //update user
+        user.setBirthday(editUser.getBirthday());
+        user.setUsername(editUser.getUsername());
     }
 
     public Boolean existsUserByUsername (String userName){
@@ -54,6 +55,10 @@ public class UserService {
 
     public User getUserByUsername(String username) {
         return this.userRepository.findByUsername(username);
+    }
+
+    public User getUserByToken(String token) {
+        return this.userRepository.findByToken(token);
     }
 
 }
